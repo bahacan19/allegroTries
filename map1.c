@@ -45,4 +45,5 @@ void init_map1_ui() {
         }
     }
     al_destroy_font(font1);
+    al_destroy_display(display1);
 }

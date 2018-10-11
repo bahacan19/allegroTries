@@ -114,7 +114,7 @@ int main() {
                 break;
         }
     }
-    al_destroy_display(display);
+    //al_destroy_display(display); zaten decide_mouse_click_position içinde destroy edilmiş
     al_destroy_bitmap(image1);
     al_destroy_bitmap(image2);
     al_destroy_font(font);
