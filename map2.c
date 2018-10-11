@@ -16,7 +16,7 @@ const int map2_first_display_height = 1000;
 ALLEGRO_EVENT_QUEUE *queue2;
 ALLEGRO_DISPLAY *display2 = NULL;
 ALLEGRO_EVENT event2;
-ALLEGRO_FONT *font;
+ALLEGRO_FONT *font2;
 
 
 void init_map2_ui();
@@ -29,8 +29,8 @@ void init_map2_ui() {
     al_register_event_source(queue2, al_get_display_event_source(display2));
 
 
-    font = al_load_ttf_font("data/DejaVuSans.ttf", 48, 0);
-    al_draw_text(font, al_map_rgb(255, 255, 255), 10, 10, ALLEGRO_ALIGN_LEFT, "Bu ekranda 2 numaralı harita datalarını alacağız.");
+    font2 = al_load_ttf_font("data/DejaVuSans.ttf", 48, 0);
+    al_draw_text(font2, al_map_rgb(255, 255, 255), 10, 10, ALLEGRO_ALIGN_LEFT, "Bu ekranda 2 numaralı harita datalarını alacağız.");
 
     al_flip_display();
     bool done = 0;
@@ -44,5 +44,5 @@ void init_map2_ui() {
                 break;
         }
     }
-    al_destroy_font(font);
+    al_destroy_font(font2);
 }
