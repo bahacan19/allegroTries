@@ -123,8 +123,8 @@ int main() {
 }
 
 void main_draw() {
-    al_draw_scaled_bitmap(image1, 0, 0, 196, 196, map1_start_x, map1_start_y, map_width, map_height, 0);
-    al_draw_scaled_bitmap(image2, 0, 0, 196, 196, map2_start_x, map2_start_y, map_width, map_height, 0);
+    al_draw_scaled_bitmap(image1, 0, 0, 500, 502, map1_start_x, map1_start_y, map_width, map_height, 0);
+    al_draw_scaled_bitmap(image2, 0, 0, 500, 502, map2_start_x, map2_start_y, map_width, map_height, 0);
     al_draw_text(font, al_map_rgb(255, 255, 255), 10, 10, ALLEGRO_ALIGN_LEFT, "Lütfen bir harita seçin.");
 }
 
