@@ -7,6 +7,7 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/mouse.h>
 #include <allegro5/mouse_cursor.h>
+#include <locale.h>
 
 const int map1_display_width = 1300;
 const int map1_first_display_height = 2000;
@@ -41,10 +42,10 @@ void init_map1_ui() {
     font1 = al_load_ttf_font("data/DejaVuSans.ttf", 48, 0);
 
 
-    char RESULT1 = listen_for_input("'t' yolu için yön giriniz: (G,Ç)");
-    char RESULT2 = listen_for_input("'x' yolu için yön giriniz: (G,Ç)");
-    char RESULT3 = listen_for_input("'y' yolu için yön giriniz: (G,Ç)");
-    char RESULT4 = listen_for_input("'z' yolu için yön giriniz: (G,Ç)");
+    char RESULT1 = listen_for_input("'t' yolu için yön giriniz: (G,C)");
+    char RESULT2 = listen_for_input("'x' yolu için yön giriniz: (G,C)");
+    char RESULT3 = listen_for_input("'y' yolu için yön giriniz: (G,C)");
+    char RESULT4 = listen_for_input("'z' yolu için yön giriniz: (G,C)");
 
     al_clear_to_color(al_map_rgb_f(0, 0, 0));
     al_draw_scaled_bitmap(image_1, 0, 0, 500, 502, image_1_start_x, image_1_start_y, 500, 500, 0);
@@ -104,7 +105,8 @@ char listen_for_input(char *prefix) {
                         al_ustr_truncate(str, pos);*/
                 } else if (e.keyboard.keycode == ALLEGRO_KEY_ENTER) {
                     //printf("%s", str->data);
-                    res[0] = str->data[strlen((const char *) str->data) - 1]; //son char alıyoruz
+                    res[0] = str->data[str->slen - 1]; //son char alıyoruz
+                    printf("%s",&res[0]);
                     //res[0] = myReplace(str->data, prefix, "");
                     //resulti = replace_str((char *) str->data, prefix, "");
                     quit = true;
