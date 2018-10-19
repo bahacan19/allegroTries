@@ -9,20 +9,23 @@
 #include <allegro5/mouse_cursor.h>
 
 const int map1_display_width = 1300;
-const int map1_first_display_height = 1000;
+const int map1_first_display_height = 2000;
 
 
 ALLEGRO_EVENT_QUEUE *queue1;
 ALLEGRO_DISPLAY *display1 = NULL;
 ALLEGRO_FONT *font1;
 
+ALLEGRO_BITMAP *image_1 = NULL;
 
-char *replace_str(char *str, char *orig, char *rep);
+const float image_1_start_x = 50, image_1_start_y = 100;
+
 
 
 void init_map1_ui();
 
-char *listen_for_input(const char *prefix);
+char listen_for_input(char *prefix);
+
 
 void init_map1_ui() {
     display1 = al_create_display(map1_display_width, map1_first_display_height);
@@ -34,16 +37,19 @@ void init_map1_ui() {
     al_register_event_source(queue1, al_get_display_event_source(display1));
 
 
+    image_1 = al_load_bitmap("map1.png");
     font1 = al_load_ttf_font("data/DejaVuSans.ttf", 48, 0);
 
 
-    char *RESULT = listen_for_input("'x' yolu için yön giriniz: (G,Ç)");
-    printf("%s", RESULT);
+    char RESULT1 = listen_for_input("'t' yolu için yön giriniz: (G,Ç)");
+    char RESULT2 = listen_for_input("'x' yolu için yön giriniz: (G,Ç)");
+    char RESULT3 = listen_for_input("'y' yolu için yön giriniz: (G,Ç)");
+    char RESULT4 = listen_for_input("'z' yolu için yön giriniz: (G,Ç)");
 
-    char *RESULT2 = listen_for_input("'t' yolu için yön giriniz: (G,Ç)");
-    //al_clear_to_color(al_map_rgb_f(0, 0, 0));
-    //al_draw_text(font1, al_map_rgb(255, 255, 255), 10, 10, ALLEGRO_ALIGN_LEFT,RESULT);
-    //al_flip_display();
+    al_clear_to_color(al_map_rgb_f(0, 0, 0));
+    al_draw_scaled_bitmap(image_1, 0, 0, 500, 502, image_1_start_x, image_1_start_y, 500, 500, 0);
+    al_draw_textf(font1, al_map_rgb(255, 255, 255), 10, 800, ALLEGRO_ALIGN_LEFT, "%c   %c   %c   %c", RESULT1, RESULT2, RESULT3, RESULT4);
+    al_flip_display();
 
     bool done = 0;
     while (!done) {
@@ -61,16 +67,16 @@ void init_map1_ui() {
     al_destroy_display(display1);
 }
 
-char *listen_for_input(const char *prefix) {
+char listen_for_input(char *prefix) {
     size_t prefix_len = strlen(prefix);
     ALLEGRO_USTR *str = al_ustr_new(prefix);
     int pos = (int) al_ustr_size(str);
-
     bool quit = false;
-    char *resulti = NULL;
+    char res[1] = "";
     while (!quit) {
         al_clear_to_color(al_map_rgb_f(0, 0, 0));
-        al_draw_ustr(font1, al_map_rgb_f(1, 1, 1), 10, 10, ALLEGRO_ALIGN_LEFT, str);
+        al_draw_scaled_bitmap(image_1, 0, 0, 500, 502, image_1_start_x, image_1_start_y, 500, 500, 0);
+        al_draw_ustr(font1, al_map_rgb_f(1, 1, 1), image_1_start_x, 700, ALLEGRO_ALIGN_LEFT, str);
         al_flip_display();
 
         ALLEGRO_EVENT e;
@@ -97,7 +103,10 @@ char *listen_for_input(const char *prefix) {
                     /*if (al_ustr_prev(str, &pos))
                         al_ustr_truncate(str, pos);*/
                 } else if (e.keyboard.keycode == ALLEGRO_KEY_ENTER) {
-                    resulti = replace_str((char *) str->data, (char *) prefix, "");
+                    //printf("%s", str->data);
+                    res[0] = str->data[strlen((const char *) str->data) - 1]; //son char alıyoruz
+                    //res[0] = myReplace(str->data, prefix, "");
+                    //resulti = replace_str((char *) str->data, prefix, "");
                     quit = true;
                 }
                 break;
@@ -106,7 +115,12 @@ char *listen_for_input(const char *prefix) {
         }
     }
     al_ustr_free(str);
-    return resulti;
+    return res[0];
+}
+
+/*
+char myReplace(unsigned char *data, char *prefix, char rep[1]) {
+    return 0;
 }
 
 char *replace_str(char *str, char *orig, char *rep) {
@@ -122,4 +136,4 @@ char *replace_str(char *str, char *orig, char *rep) {
     sprintf(buffer + (p - str), "%s%s", rep, p + strlen(orig));
 
     return buffer;
-}
+}*/
