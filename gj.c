@@ -29,6 +29,15 @@ int main()
             }
         }
     }
+
+    for(i=1; i<=n; i++)
+    {
+        for(j=1; j<=(n+1); j++)
+        {
+            printf("middle A[%d][%d]: %.2f \n", i,j,A[i][j]);
+        }
+    }
+
     printf("\nThe solution is:\n");
     for(i=1; i<=n; i++)
     {
